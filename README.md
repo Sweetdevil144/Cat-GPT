@@ -13,7 +13,7 @@ Welcome to CatGPT, an open-source platform inspired by ChatGPT, designed to prov
 
 **Responsive Web Design:** Accessible on various devices, ensuring a smooth user experience.
 
-((Privacy Focused:** No logging of personal query data to prioritize user privacy.
+**Privacy Focused:** No logging of personal query data to prioritize user privacy.
 
 
 ## Technologies

@@ -18,7 +18,7 @@ Before you start, ensure you have the following installed on your machine:
 
 The CatGPT project is structured as follows:
 
-```
+```bash
 CatGPT/
 │
 ├── client/                # Frontend React application

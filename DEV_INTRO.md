@@ -1,7 +1,3 @@
-Here's a `DEV_INTRO.md` document that you can use for your `CatGPT` project. This document will guide developers on how to set up and run both the frontend and backend services using Docker for local development.
-
----
-
 # Developer Introduction to CatGPT
 
 Welcome to the development guide for CatGPT. This document provides the necessary instructions to set up and run the CatGPT application locally using Docker. Our setup includes a React-based frontend and a Go-based backend.

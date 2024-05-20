@@ -1,0 +1,12 @@
+# Node
+client/node_modules/
+
+# Go
+server/bin/
+server/pkg/
+
+# Env files
+*.env
+
+# System Files
+.DS_Store

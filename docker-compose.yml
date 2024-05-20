@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  frontend:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client/src:/app/src
+    environment:
+      - NODE_ENV=development
+  backend:
+    build: ./server
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./server:/app
+    environment:
+      - GO_ENV=development

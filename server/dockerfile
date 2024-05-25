@@ -20,14 +20,24 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o catgpt-backend ./
 FROM alpine:latest
 
 RUN apk --no-cache add ca-certificates
+RUN apk add --no-cache curl
 
+# Set the Current Working Directory inside the container
 WORKDIR /root/
+
+# Install Ollama
+RUN curl -fsSL https://ollama.com/install.sh | sh
+
+# Download LLaMA3 model
+RUN ollama download llama3
 
 # Copy the Pre-built binary file from the previous stage
 COPY --from=builder /app/catgpt-backend .
 
-# Expose port 8080 to the outside world
+# Expose ports
 EXPOSE 8080
+EXPOSE 11434
+#  As usual the Ollama api will be served on http://localhost:11434.
 
-# Command to run the executable
-CMD ["./catgpt-backend"]
+# Start Ollama and the backend
+CMD ollama start llama3 --port 1144 & ./catgpt-backend

@@ -2,8 +2,9 @@ package handler
 
 import (
     "encoding/json"
+    "io"
     "net/http"
-    "os/exec"
+    "bytes"
 )
 
 type ChatRequest struct {
@@ -32,10 +33,24 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateResponse(prompt string) (string, error) {
-    cmd := exec.Command("python", "llama3_infer.py", prompt)
-    output, err := cmd.CombinedOutput()
+    url := "http://localhost:11434/api/generate"
+    payload := map[string]string{"prompt": prompt}
+    payloadBytes, err := json.Marshal(payload)
     if err != nil {
         return "", err
     }
-    return string(output), nil
+    resp, err := http.Post(url, "application/json", bytes.NewBuffer(payloadBytes))
+    if err != nil {
+        return "", err
+    }
+    defer resp.Body.Close()
+    body, err := io.ReadAll(resp.Body)
+    if err != nil {
+        return "", err
+    }
+    var result map[string]string
+    if err := json.Unmarshal(body, &result); err != nil {
+        return "", err
+    }
+    return result["response"], nil
 }

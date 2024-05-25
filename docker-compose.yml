@@ -17,6 +17,7 @@ services:
     build: ./server
     ports:
       - "8080:8080"
+      - "11434:11434"
     volumes:
       - ./server:/app
     environment:

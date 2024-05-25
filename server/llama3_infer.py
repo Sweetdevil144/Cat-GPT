@@ -1,5 +1,7 @@
 from transformers import LlamaForCausalLM, LlamaTokenizer
 
+# Will depreciate this file I we decide to use Ollama
+
 # Model and Tokeniser
 tokenizer = LlamaTokenizer.from_pretrained("{integrate/path/to/llama3/after/locally/installing/it}")
 model = LlamaForCausalLM.from_pretrained("{integrate/path/to/llama3/after/locally/installing/it}")

@@ -10,8 +10,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 # Install app dependencies
 COPY package.json ./
 COPY package-lock.json ./
-RUN npm install --silent
-RUN npm install react-scripts@5.0.1 -g --silent
+RUN yarn install --silent
 
 # Add app
 COPY . ./

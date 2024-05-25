@@ -19,7 +19,7 @@ func main() {
 
     router := mux.NewRouter()
     router.Use(middleware.LoggingMiddleware)
-    
+
     router.HandleFunc("/chat", handler.ChatHandler).Methods("POST")
 
     port := os.Getenv("PORT")

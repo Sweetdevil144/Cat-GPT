@@ -2,7 +2,7 @@ package handler
 
 import (
     "encoding/json"
-    "io"
+    "io/ioutil"
     "net/http"
     "bytes"
 )
@@ -33,7 +33,7 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateResponse(prompt string) (string, error) {
-    url := "http://localhost:11434/api/generate"
+    url := "http://ollama:11434/generate"  // Updated to use the service name defined in docker-compose
     payload := map[string]string{"prompt": prompt}
     payloadBytes, err := json.Marshal(payload)
     if err != nil {
@@ -44,7 +44,7 @@ func generateResponse(prompt string) (string, error) {
         return "", err
     }
     defer resp.Body.Close()
-    body, err := io.ReadAll(resp.Body)
+    body, err := ioutil.ReadAll(resp.Body)
     if err != nil {
         return "", err
     }

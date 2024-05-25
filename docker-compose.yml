@@ -17,8 +17,21 @@ services:
     build: ./server
     ports:
       - "8080:8080"
-      - "11434:11434"
     volumes:
       - ./server:/app
     environment:
       - GO_ENV=development
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    volumes:
+      - ollama:/root/.ollama
+    ports:
+      - "11434:11434"
+    command: ollama start llama3 --port 11434
+
+volumes:
+  ollama:

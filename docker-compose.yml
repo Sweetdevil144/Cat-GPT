@@ -31,7 +31,8 @@ services:
       - ollama:/root/.ollama
     ports:
       - "11434:11434"
-    command: ollama start llama3 --port 11434
+    command: >
+      sh -c "ollama start llama3 --port 11434 && exec ollama run llama3"
 
 volumes:
   ollama:

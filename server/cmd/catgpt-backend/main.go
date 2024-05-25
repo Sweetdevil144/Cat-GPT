@@ -3,20 +3,32 @@ package main
 import (
     "log"
     "net/http"
+    "os"
+
+    "catgpt-backend/pkg/handler"
+    "catgpt-backend/pkg/middleware"
     "github.com/gorilla/mux"
+    "github.com/joho/godotenv"
 )
 
 func main() {
+    err := godotenv.Load()
+    if err != nil {
+        log.Fatal("Error loading .env file")
+    }
+
     router := mux.NewRouter()
-    // Creates a new router instance using gorilla/mux.
+    router.Use(middleware.LoggingMiddleware)
+    
+    router.HandleFunc("/chat", handler.ChatHandler).Methods("POST")
 
-    router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        w.Write([]byte("Hello from CatGPT Backend!"))
-    })
-    // Registers a new route with a path of "/" to an anonymous function.
-    // This function writes "Hello from CatGPT Backend!" to the response.
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
 
-    log.Fatal(http.ListenAndServe(":8080", router))
-    // Starts an HTTP server on port 8080 and uses the router to handle requests.
-    // log.Fatal will log the error returned by ListenAndServe and exit the program if it's non-nil.
+    log.Printf("Starting server on port %s", port)
+    if err := http.ListenAndServe(":"+port, router); err != nil {
+        log.Fatalf("Could not start server: %s\n", err)
+    }
 }

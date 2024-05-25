@@ -4,7 +4,7 @@ Welcome to CatGPT, an open-source platform inspired by ChatGPT, designed to prov
 
 ## Features
 
-**Conversational AI Interface:** Leverage Hugging Face's LLaMA3 model to generate responses to user queries.
+**Conversational AI Interface:** Hugging Face's LLaMA3 model to generate responses to user queries.
 
 **User Authentication:** Support for logging in and signing up using Google and GitHub OAuth integrations.
 

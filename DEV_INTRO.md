@@ -17,7 +17,7 @@ The CatGPT project is structured as follows:
 ```bash
 CatGPT/
 │
-├── client/                # Frontend React application
+├── client/                # Frontend React + Typescript application
 │   ├── src/
 │   ├── public/
 │   └── package.json

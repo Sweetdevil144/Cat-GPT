@@ -2,7 +2,7 @@ package handler
 
 import (
     "encoding/json"
-    "io/ioutil"
+    "io"
     "net/http"
     "bytes"
 )
@@ -44,7 +44,7 @@ func generateResponse(prompt string) (string, error) {
         return "", err
     }
     defer resp.Body.Close()
-    body, err := ioutil.ReadAll(resp.Body)
+    body, err := io.ReadAll(resp.Body)
     if err != nil {
         return "", err
     }

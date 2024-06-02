@@ -1,5 +1,5 @@
 # Base image
-FROM node:16-alpine
+FROM node:22-alpine
 
 # Set working directory
 WORKDIR /app
@@ -9,14 +9,14 @@ ENV PATH /app/node_modules/.bin:$PATH
 
 # Install app dependencies
 COPY package.json ./
-COPY package-lock.json ./
+COPY yarn.lock ./
 RUN yarn install --silent
 
 # Add app
 COPY . ./
 
 # Start app
-CMD ["npm", "start"]
+CMD ["yarn", "start"]
 
 # Expose the port the app runs on
 EXPOSE 3000

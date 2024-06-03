@@ -3,11 +3,11 @@ package main
 import (
 	"catgpt-backend/pkg/handler"
 	"catgpt-backend/pkg/middleware"
+	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
-	"github.com/gorilla/mux"
-	"github.com/joho/godotenv"
 )
 
 func main() {

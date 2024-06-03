@@ -1,10 +1,9 @@
 package handler
 
 import (
+	"bytes"
 	"encoding/json"
-	"fmt"
 	"net/http"
-	"strings"
 )
 
 type ChatRequest struct {
@@ -32,10 +31,20 @@ func ChatHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(res)
 }
 
+type ChatAPIRequest struct {
+	Prompt string `json:"prompt"`
+	Model  string `json:"model"`
+	Stream bool   `json:"stream"`
+}
+
 func generateResponse(prompt string) (string, error) {
 	url := "http://ollama:11434/api/generate"
-	payload := fmt.Sprintf(`{"prompt": "%s", "model": "llama3", "stream": false}`, prompt)
-	resp, err := http.Post(url, "application/json", strings.NewReader(payload))
+	// payload := fmt.Sprintf(`{"prompt": "%s", "model": "llama3", "stream": false}`, prompt)
+	payload, err := json.Marshal(ChatAPIRequest{Prompt: prompt, Model: "llama3", Stream: false})
+	if err != nil {
+		return "", err
+	}
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(payload))
 	if err != nil {
 		return "", err
 	}

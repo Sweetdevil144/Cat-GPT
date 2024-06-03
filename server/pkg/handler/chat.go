@@ -39,22 +39,21 @@ type ChatAPIRequest struct {
 
 func generateResponse(prompt string) (string, error) {
 	url := "http://ollama:11434/api/generate"
-	// payload := fmt.Sprintf(`{"prompt": "%s", "model": "llama3", "stream": false}`, prompt)
 	payload, err := json.Marshal(ChatAPIRequest{Prompt: prompt, Model: "llama3", Stream: false})
 	if err != nil {
-		return "", err
+		return "Response here", err
 	}
+
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(payload))
 	if err != nil {
-		return "", err
+		return "Response here", err
 	}
 	defer resp.Body.Close()
 
-	var result struct {
-		Response string `json:"response"`
-	}
-	if err := json.NewDecoder(resp.Body).Decode(&result); err != nil {
-		return "", err
-	}
-	return result.Response, nil
+	var chatResp ChatResponse
+    if err := json.NewDecoder(resp.Body).Decode(&chatResp); err != nil {
+        return "Response here", err
+    }
+
+    return chatResp.Response, nil
 }

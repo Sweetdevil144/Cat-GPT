@@ -90,6 +90,12 @@ This command stops and removes all running containers based on your `docker-comp
 docker-compose down -v
 ```
 
+To bring your containers back online, use the following command :
+
+```bash
+docker-compose up -d
+```
+
 ## Conclusion
 
 This guide should help you get started with developing the CatGPT project using Docker. For any additional information or help, refer to the main `README.md` or contact the project maintainers.

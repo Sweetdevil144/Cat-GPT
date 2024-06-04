@@ -41,18 +41,18 @@ func generateResponse(prompt string) (string, error) {
 	url := "http://ollama:11434/api/generate"
 	payload, err := json.Marshal(ChatAPIRequest{Prompt: prompt, Model: "llama3", Stream: false})
 	if err != nil {
-		return "Response here", err
+		return "res : ", err
 	}
 
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(payload))
 	if err != nil {
-		return "Response here", err
+		return "res : ", err
 	}
 	defer resp.Body.Close()
 
 	var chatResp ChatResponse
     if err := json.NewDecoder(resp.Body).Decode(&chatResp); err != nil {
-        return "Response here", err
+        return "res : ", err
     }
 
     return chatResp.Response, nil

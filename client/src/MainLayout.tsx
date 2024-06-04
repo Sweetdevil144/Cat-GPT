@@ -7,7 +7,7 @@ type Message={
     sender:'user'|'ollama';
 }
 const MainLayout: React.FC = () => {
-    const [messages, setMessages] = useState<{ type: string; content: string; sender: 'user' | 'ollama'; }[]>([]);
+    const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
 
     const handleSend = () => {
@@ -27,7 +27,7 @@ const MainLayout: React.FC = () => {
             </header>
             
             <main className="flex-1 bg-blue-100 p-4 overflow-auto">
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col h-full space-y-4">
                     {messages.map((msg, index) => (
                         <Message
                             key={index}
@@ -36,9 +36,7 @@ const MainLayout: React.FC = () => {
                             sender={msg.sender}
                         />
                     ))}
-                    <div>
-                         <Message type="text" content={input} sender="user"/>                     </div>
-                    </div>
+                </div>
             </main>
 
             <footer className="bg-white p-4 flex items-center">
@@ -50,7 +48,7 @@ const MainLayout: React.FC = () => {
                     onChange={(e) => setInput(e.target.value)}
                 />
                 <button 
-                   className="bg-green-500 text-white p-2"
+                   className="bg-green-500 hover:bg-green-600 text-white p-2 rounded"
                    onClick={handleSend}>
                     REQUEST
                 </button>

@@ -11,7 +11,7 @@ const Message: React.FC<MessageProps> = ({ type, content, sender }) => {
 
     return (
         <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-4`}>
-            <div className={`p-4 rounded-lg max-w-xs ${isUser ? 'bg-green-200' : 'bg-blue-200'}`}>
+            <div className={`p-4 rounded-lg max-w-xs ${isUser ? 'bg-green-500  text-white' : 'bg-blue-500 text-white'}`}>
                 {type === 'text' && <p>{content}</p>}
                 {type === 'link' && (
                     <a href={content} target="_blank" rel="noopener noreferrer">

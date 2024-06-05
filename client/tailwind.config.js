@@ -7,6 +7,7 @@ const config = {
     extend: {},
   },
   plugins: [],
+  darkMode: 'selector',
 };
 
 module.exports = withMaterialColors(

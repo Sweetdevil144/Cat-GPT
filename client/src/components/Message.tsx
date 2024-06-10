@@ -1,12 +1,12 @@
 import React from "react";
+import { MessageType } from "../redux/store";
 
 type MessageProps = {
-  type: string;
-  content: string;
-  sender: "user" | "ollama";
+  message: MessageType;
 };
 
-const Message: React.FC<MessageProps> = ({ type, content, sender }) => {
+const Message: React.FC<MessageProps> = ({message}) => {
+  const {type , content , sender } = message;
   const isUser = sender === "user";
 
   return (

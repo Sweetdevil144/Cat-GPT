@@ -7,4 +7,4 @@ COPY start.sh /start.sh
 RUN chmod +x /start.sh
 
 # Command to run the start.sh script
-CMD ["/bin/sh", "-c", "/start.sh"]
+CMD ["/bin/bash", "/start.sh"]

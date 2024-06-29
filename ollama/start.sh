@@ -1,24 +1,37 @@
 #!/bin/bash
+GREEN=`\033[0;32m`
+BLUE=`\033[0;34m`
+YELLOW=`\033[1;33m`
+RED=`\033[0;31m`
+VIOLET=`\033[0;35m`
+NC=`\033[0m`
 
-echo "Starting ollama service..." &&
+
+echo "###################################################" &&
+echo -e "\n${YELLOW}Starting Ollama...${NC}\n" &&
+dockerc-ompose up -d &&
+echo -e "\n"
+
+echo "###################################################" &&
 ollama serve &
 
 # Wait for a few seconds to ensure the ollama service has started
 sleep 5
 
-echo "Pulling llama3 model..." &&
+echo "###################################################" &&
+echo "${GREEN}Pulling llama3 model..." &&
 
 echo "###################################################" &&
 
-echo "Starting llama3 model..." &&
+echo "${BLUE}Starting llama3 model..." &&
 ollama run llama3 &&
 
 echo "###################################################" &&
 
-echo "Services Pull/Installed are as follow" &&
+echo "${RED}Services Pull/Installed are as follow" &&
 ollama list &&
 
-echo "llama3 Image Started..." &&
+echo "${VIOLET}llama3 Image Started..." &&
 
 echo "###################################################" &&
 

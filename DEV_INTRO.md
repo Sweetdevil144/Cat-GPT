@@ -55,7 +55,7 @@ cd CatGPT
 Docker Compose is used to simplify the process of building and running multi-container Docker applications. To start both the frontend and backend services, use the following command:
 
 ```bash
-docker-compose up --build
+./start.sh
 ```
 
 This command performs the following actions:

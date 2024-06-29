@@ -7,10 +7,6 @@ VIOLET=`\033[0;35m`
 NC=`\033[0m`
 
 
-echo "###################################################" &&
-echo -e "\n${YELLOW}Starting Ollama...${NC}\n" &&
-dockerc-ompose up -d &&
-echo -e "\n"
 
 echo "###################################################" &&
 ollama serve &

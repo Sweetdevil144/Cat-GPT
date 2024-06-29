@@ -61,6 +61,10 @@ Docker Compose is used to simplify the process of building and running multi-con
 
 ```bash
 ./run_docker.sh
+
+# or
+
+docker-compose up -d
 ```
 
 This command performs the following actions:

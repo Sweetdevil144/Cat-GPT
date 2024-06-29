@@ -29,6 +29,7 @@ services:
     container_name: ollama
     volumes:
       - ollama:/root/.ollama
+      - ./ollama/start.sh:/start.sh
     ports:
       - 11434:11434
     entrypoint: ["/bin/bash", "/start.sh"]

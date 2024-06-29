@@ -28,6 +28,7 @@ const Footer: React.FC<FooterProps> = ({ input, setInput, handleSend }) => {
       <button
         className="p-2 m-2 rounded-lg interactive-bg-primary-container"
         onClick={handleSend}
+        title="Send Message"
       >
         <PaperAirplaneIcon className="h-6 w-6" />
       </button>

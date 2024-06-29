@@ -17,6 +17,10 @@ The CatGPT project is structured as follows:
 ```bash
 CatGPT/
 │
+├── ollama/ 
+│    ├── Dockerfile
+│    ├── start.sh
+│
 ├── client/                # Frontend React + Typescript application
 │   ├── src/
 │   ├── public/
@@ -37,6 +41,7 @@ CatGPT/
 │
 ├── README.md              # Project overview and setup instructions
 └── docker-compose.yml     # Docker configuration for local development
+└── run_llama.sh
 ```
 
 ## Setting Up Your Development Environment
@@ -55,7 +60,7 @@ cd CatGPT
 Docker Compose is used to simplify the process of building and running multi-container Docker applications. To start both the frontend and backend services, use the following command:
 
 ```bash
-./start.sh
+./run_docker.sh
 ```
 
 This command performs the following actions:
@@ -94,6 +99,17 @@ To bring your containers back online, use the following command :
 
 ```bash
 docker-compose up -d
+```
+
+## Testing
+
+To test if Ollama is up and runing, try the below bahs command :
+
+```bash
+curl http://localhost:11434/api/generate -d '{
+  "model": "llama3",
+  "prompt": "Why is the sky blue?"
+}'
 ```
 
 ## Conclusion

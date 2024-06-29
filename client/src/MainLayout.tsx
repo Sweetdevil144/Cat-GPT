@@ -1,17 +1,20 @@
 // MainLayout.tsx
 import React, { useState, useEffect } from "react";
-import {RootState,sendMessage} from "./redux/store";
+import { RootState, sendMessage } from "./redux/store";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Tips from "./components/Tips";
 import MessageList from "./components/MessageList";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 
+const API_ENDPOINT: string = "http://localhost:8080/chat";
 
 const MainLayout: React.FC = () => {
-  const message=useSelector((state:RootState)=>state.app.message);
+  const message = useSelector((state: RootState) => state.app.message);
   const [input, setInput] = useState("");
-  const dispatch =useDispatch();
+  const dispatch = useDispatch();
+  const [content, setContent] = useState("");
 
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -34,16 +37,31 @@ const MainLayout: React.FC = () => {
     }
   }, [darkMode]);
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim() !== "") {
-      dispatch(sendMessage({ type:"text", content: input, sender: "user" }));
+      dispatch(sendMessage({ type: "text", content: input, sender: "user" }));
       setInput("");
-      const catMessage = {
-        type: "text",
-        content: "I am a cat-GPT, How can I assist you?",
-        sender: "ollama",
-      };
-      dispatch(sendMessage(catMessage));
+
+      try {
+        const res = await axios.get(API_ENDPOINT, {
+          data: {
+            prompt: input,
+          },
+        });
+        console.log("Content is : \n")
+        console.log(res.data.response);
+        setContent(res.data.response);
+
+        // Dispatch the message with the updated content from the API
+        const catMessage = {
+          type: "text",
+          content: content,
+          sender: "ollama",
+        };
+        dispatch(sendMessage(catMessage));
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     }
   };
 

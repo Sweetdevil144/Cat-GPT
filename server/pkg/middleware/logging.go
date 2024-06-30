@@ -7,17 +7,21 @@ import (
 )
 
 func LoggingMiddleware(next http.Handler) http.Handler {
-	allowedHeaders := "Accept, Content-Type, Content-Length, Accept-Encoding, Authorization,X-CSRF-Token"
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		allowedHeaders := "Accept, Content-Type, Content-Length, Accept-Encoding, Authorization, X-CSRF-Token"
 
-	return http.HandlerFunc(func(responseWriter http.ResponseWriter, response *http.Request) {
-		if origin := response.Header.Get("Origin"); origin != "" {
-			responseWriter.Header().Set("Access-Control-Allow-Origin", "*")
-			responseWriter.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-			responseWriter.Header().Set("Access-Control-Allow-Headers", allowedHeaders)
-			responseWriter.Header().Set("Access-Control-Expose-Headers", "Authorization")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+		w.Header().Set("Access-Control-Allow-Headers", allowedHeaders)
+		w.Header().Set("Access-Control-Expose-Headers", "Authorization")
+
+		if r.Method == http.MethodOptions {
+			w.WriteHeader(http.StatusOK)
+			return
 		}
+
 		start := time.Now()
-		next.ServeHTTP(responseWriter, response)
-		log.Printf("method=%s path=%s duration=%s", response.Method, response.URL.Path, time.Since(start))
+		next.ServeHTTP(w, r)
+		log.Printf("method=%s path=%s duration=%s", r.Method, r.URL.Path, time.Since(start))
 	})
 }

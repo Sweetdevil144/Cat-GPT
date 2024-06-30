@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import Tips from "./components/Tips";
 import MessageList from "./components/MessageList";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
 
 const API_ENDPOINT: string = "http://localhost:8080/chat";
 
@@ -14,7 +13,6 @@ const MainLayout: React.FC = () => {
   const message = useSelector((state: RootState) => state.app.message);
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
-  const [content, setContent] = useState("");
 
   const [darkMode, setDarkMode] = useState(() => {
     const savedMode = localStorage.getItem("darkMode");
@@ -54,12 +52,12 @@ const MainLayout: React.FC = () => {
         }
 
         const resData = await response.json();
-        setContent(resData.response);
+        console.log("Response from API: \n", resData.response);
 
         // Dispatch the message with the updated content from the API
         const catMessage = {
           type: "text",
-          content: content,
+          content: resData.response,
           sender: "ollama",
         };
         dispatch(sendMessage(catMessage));

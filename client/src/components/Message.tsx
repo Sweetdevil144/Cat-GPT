@@ -5,14 +5,16 @@ type MessageProps = {
   message: MessageType;
 };
 
-const Message: React.FC<MessageProps> = ({message}) => {
-  const {type , content , sender } = message;
+const Message: React.FC<MessageProps> = ({ message }) => {
+  const { type, content, sender } = message;
   const isUser = sender === "user";
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
       <div
-        className={`p-4 rounded-lg max-w-xs ${isUser ? "bg-surface-container" : "bg-primary-container"}`}
+        className={`p-4 rounded-lg max-w-[40rem] ${
+          isUser ? "bg-surface-container" : "bg-primary-container"
+        }`}
       >
         {type === "text" && <p>{content}</p>}
         {type === "link" && (

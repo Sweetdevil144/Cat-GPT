@@ -37,20 +37,24 @@ const MainLayout: React.FC = () => {
     }
   }, [darkMode]);
 
+
   const handleSend = async () => {
     if (input.trim() !== "") {
       dispatch(sendMessage({ type: "text", content: input, sender: "user" }));
       setInput("");
 
       try {
-        const res = await axios.get(API_ENDPOINT, {
-          data: {
-            prompt: input,
-          },
+        const response = await fetch(API_ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify({ prompt: input }),
         });
-        console.log("Content is : \n")
-        console.log(res.data.response);
-        setContent(res.data.response);
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const resData = await response.json();
+        setContent(resData.response);
 
         // Dispatch the message with the updated content from the API
         const catMessage = {
@@ -60,7 +64,7 @@ const MainLayout: React.FC = () => {
         };
         dispatch(sendMessage(catMessage));
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error here:", error);
       }
     }
   };

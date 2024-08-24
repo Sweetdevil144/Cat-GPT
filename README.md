@@ -4,7 +4,8 @@
 
 ## **Maintainer** : [Abhinav Pandey](https://github.com/Sweetdevil144/)
 
-**Notion Link** : [here](https://childlike-newsboy-5dd.notion.site/Cat-GPT-fd57b098bdd64f7090ac6d86dcc71564?pvs=4)
+**Notion Link** : [COPS/Cat-GPT](https://childlike-newsboy-5dd.notion.site/Cat-GPT-fd57b098bdd64f7090ac6d86dcc71564?pvs=4)
+**Link to Video Walkthrough of the Project** : [Drive Link]([url](https://drive.google.com/drive/folders/1rTi7Gzf8fPg_Y0PLziTa72jcS1a4bbjA?usp=sharing))
 
 Welcome to CatGPT, an open-source platform inspired by ChatGPT, designed to provide free access to a conversational AI using the Hugging Face LLaMA3 model. This project is built to demonstrate how end-to-end applications are structured and to provide a platform for developers and users to interact with AI technology.
 

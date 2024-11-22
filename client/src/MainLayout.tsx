@@ -7,7 +7,7 @@ import Tips from "./components/Tips";
 import MessageList from "./components/MessageList";
 import { useDispatch, useSelector } from "react-redux";
 
-const API_ENDPOINT: string = "http://localhost:8080/chat";
+const API_ENDPOINT: string = "http://localhost:8081/chat";
 
 const MainLayout: React.FC = () => {
   const message = useSelector((state: RootState) => state.app.message);
@@ -40,7 +40,7 @@ const MainLayout: React.FC = () => {
     if (input.trim() !== "") {
       dispatch(sendMessage({ type: "text", content: input, sender: "user" }));
       setInput("");
-
+      console.log("Sending data to backend:", input);
       try {
         const response = await fetch(API_ENDPOINT, {
           method: "POST",

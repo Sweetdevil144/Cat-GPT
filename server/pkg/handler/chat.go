@@ -3,7 +3,6 @@ package handler
 import (
 	"bytes"
 	"encoding/json"
-	"log"
 	"net/http"
 )
 
@@ -17,34 +16,19 @@ type ChatResponse struct {
 
 func ChatHandler(w http.ResponseWriter, r *http.Request) {
 	var req ChatRequest
-	if err := json.NewDecoder(r.Body).Decode(&req);err != nil {
-		log.Printf("Error decoding request: %v", err)
-		http.Error(w, "Invalid request body", http.StatusBadRequest)
-		return
-	} 
-
-	log.Printf("Received request with prompt: %s", req.Prompt)
-
-    //for ai response
-	responseText := "Mock response for:" + req.Prompt
-	res := ChatResponse{
-		Response: responseText,
-	}
-	if err := json.NewEncoder(w).Encode(res);err != nil {
-		log.Printf("Error encoding response: %v", err)
-		http.Error(w, "Internal server error", http.StatusInternalServerError)
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
 
-	// response, err := generateResponse(req.Prompt)
-	// if err != nil {
-	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
-	// 	return
-	// }
-	// res := ChatResponse{
-	// 	Response: response,
-	// }
-	// json.NewEncoder(w).Encode(res)
+	response, err := generateResponse(req.Prompt)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	res := ChatResponse{Response: response}
+	json.NewEncoder(w).Encode(res)
 }
 
 type ChatAPIRequest struct {
@@ -67,9 +51,9 @@ func generateResponse(prompt string) (string, error) {
 	defer resp.Body.Close()
 
 	var chatResp ChatResponse
-	if err := json.NewDecoder(resp.Body).Decode(&chatResp); err != nil {
-		return "res : ", err
-	}
+    if err := json.NewDecoder(resp.Body).Decode(&chatResp); err != nil {
+        return "res : ", err
+    }
 
-	return chatResp.Response, nil
+    return chatResp.Response, nil
 }
